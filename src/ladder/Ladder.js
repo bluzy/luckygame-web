@@ -4,9 +4,9 @@ class Ladder extends Component {
     state = {
         xOffset: 20,
         yOffset: 20,
-        ySpace: 50,
+        ySpace: 25,
         xSpace: 100,
-        branches: 10
+        branches: 20
     }
 
     drawNames = () => {
@@ -35,7 +35,7 @@ class Ladder extends Component {
             ctx.beginPath();
             ctx.moveTo(x, y);
 
-            ctx.lineTo(x, this.getLineY(10));
+            ctx.lineTo(x, this.getLineY(20));
             ctx.stroke();
         }
     }
@@ -111,7 +111,7 @@ class Ladder extends Component {
         for (let i=0; i<len; i++) {
             let line = [];
 
-            for (let j=0; j<10; j++) {
+            for (let j=0; j<this.state.branches; j++) {
                 line.push({left:false, right:false});
             }
 
@@ -146,7 +146,7 @@ class Ladder extends Component {
 
         let paths = [];
 
-        for (let i=0; i<10; i++) {
+        for (let i=0; i<this.state.branches; i++) {
             console.log('checking ' + x + ',' + i);
             let move = currLine[i]['left'] || currLine[i]['right'];
 
@@ -166,7 +166,7 @@ class Ladder extends Component {
             }
         }
 
-        paths.push({x: this.getLineX(x), y: this.getLineY(10)});
+        paths.push({x: this.getLineX(x), y: this.getLineY(this.state.branches)});
 
         return paths;
     }
@@ -174,8 +174,24 @@ class Ladder extends Component {
     onClick = (e) => {
         const canvas = this.refs.canvas;
 
-        let x = e.clientX - canvas.offsetTop;
-        let y = e.clientY - canvas.offsetLeft;
+        console.log(canvas)
+        
+        let x;
+        let y;
+
+        if (e.pageX || e.pageY) { 
+            x = e.pageX;
+            y = e.pageY;
+          }
+          else { 
+            x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
+            y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
+          } 
+
+        x = x - canvas.offsetLeft;
+        y = y - canvas.offsetTop;
+
+        console.log(x + ',' + y)
 
         if (y > this.getLineY(0)) {
             return;
@@ -200,7 +216,16 @@ class Ladder extends Component {
         const canvas = this.refs.canvas;
         const ctx = canvas.getContext("2d");
 
-        ctx.clearRect(0,0,canvas.width, canvas.height)
+        let len = this.props.names.length;
+
+        canvas.width = Math.max(this.state.xSpace * len, 640);
+        canvas.height = Math.max(this.getLineY(this.state.branches) + (this.state.yOffset * 2), 480);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+        if (len === 0) {
+            return
+        }
 
         ctx.strokeStyle="black"
 
@@ -210,6 +235,10 @@ class Ladder extends Component {
         this.drawBranches();
     }
 
+    componentDidUpdate() {
+        this.init();
+    }
+
     componentDidMount() {
         this.init();
     }
@@ -217,6 +246,7 @@ class Ladder extends Component {
     render() {
         return(
             <div>
+                <h2>사 다 리 게 임 </h2>
                 <canvas ref="canvas" width={1024} height={768} onClick={this.onClick}/>
             </div>
         )
