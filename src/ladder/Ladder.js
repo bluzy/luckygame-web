@@ -5,8 +5,11 @@ class Ladder extends Component {
         xOffset: 20,
         yOffset: 20,
         ySpace: 25,
-        xSpace: 100,
-        branches: 20
+        xSpace: 100
+    }
+
+    getHeight = () => {
+        return Math.max.apply(null, this.props.branches.map(b => Math.max.apply(null, b))) + 1
     }
 
     drawNames = () => {
@@ -35,7 +38,7 @@ class Ladder extends Component {
             ctx.beginPath();
             ctx.moveTo(x, y);
 
-            ctx.lineTo(x, this.getLineY(20));
+            ctx.lineTo(x, this.getLineY(this.getHeight()));
             ctx.stroke();
         }
     }
@@ -71,7 +74,7 @@ class Ladder extends Component {
         let idx = 0;
 
         this.props.goals.forEach(goal => {
-            ctx.fillText(goal, this.getLineX(idx), this.getLineY(this.state.branches) + this.state.yOffset, this.state.xSpace * 0.8);
+            ctx.fillText(goal, this.getLineX(idx), this.getLineY(this.getHeight()) + this.state.yOffset, this.state.xSpace * 0.8);
             idx++;
         });
     }
@@ -97,7 +100,8 @@ class Ladder extends Component {
 
         paths.forEach(p => {
             ctx.lineTo(p['x'], p['y']);
-            ctx.strokeStyle="red"
+            ctx.lineWidth=5;
+            ctx.strokeStyle="red";
             ctx.stroke()
         })
     }
@@ -111,13 +115,14 @@ class Ladder extends Component {
         for (let i=0; i<len; i++) {
             let line = [];
 
-            for (let j=0; j<this.state.branches; j++) {
+            for (let j=0; j<this.getHeight(); j++) {
                 line.push({left:false, right:false});
             }
 
             lines.push(line)
         }
 
+        console.log(this.props.branches)
         console.log(lines)
 
         let idx = 0;
@@ -146,7 +151,7 @@ class Ladder extends Component {
 
         let paths = [];
 
-        for (let i=0; i<this.state.branches; i++) {
+        for (let i=0; i<this.getHeight(); i++) {
             console.log('checking ' + x + ',' + i);
             let move = currLine[i]['left'] || currLine[i]['right'];
 
@@ -166,7 +171,7 @@ class Ladder extends Component {
             }
         }
 
-        paths.push({x: this.getLineX(x), y: this.getLineY(this.state.branches)});
+        paths.push({x: this.getLineX(x), y: this.getLineY(this.getHeight())});
 
         return paths;
     }
@@ -219,7 +224,7 @@ class Ladder extends Component {
         let len = this.props.names.length;
 
         canvas.width = Math.max(this.state.xSpace * len, 640);
-        canvas.height = Math.max(this.getLineY(this.state.branches) + (this.state.yOffset * 2), 480);
+        canvas.height = Math.max(this.getLineY(this.getHeight()) + (this.state.yOffset * 2), 480);
 
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -251,6 +256,10 @@ class Ladder extends Component {
             </div>
         )
     }
+}
+
+Ladder.defaultProps = {
+    height: 20
 }
 
 export default Ladder;

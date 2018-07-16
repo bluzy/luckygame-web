@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class MemberPair extends Component {
+class LadderMemberPair extends Component {
     state = {
         user: '',
         goal: ''
@@ -14,7 +14,7 @@ class MemberPair extends Component {
         });
 
         onUpdate(data.id, {
-            user: this.state.user,
+            user: e.target.value,
             goal: this.state.goal
         });
     }
@@ -28,7 +28,7 @@ class MemberPair extends Component {
 
         onUpdate(data.id, {
             user: this.state.user,
-            goal: this.state.goal
+            goal: e.target.value
         });
     }
 
@@ -45,4 +45,4 @@ class MemberPair extends Component {
     }
 }
 
-export default MemberPair;
+export default LadderMemberPair;

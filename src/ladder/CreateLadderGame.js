@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import MemberPair from './MemberPair';
+import LadderMemberPair from './LadderMemberPair';
+import { Button } from 'reactstrap';
 
-class CreateGame extends Component {
+class CreateLadderGame extends Component {
     id = 2
     state = {
         data: [
@@ -45,7 +46,6 @@ class CreateGame extends Component {
 
         let users = []
         let goals = []
-        let branches = []
 
         if (this.state.data.some(d => d.user === '' || d.goal === '')) {
             alert('Empty data');
@@ -57,14 +57,31 @@ class CreateGame extends Component {
             goals.push(d['goal'])
         })
 
+        let branches = this.createBranches(users);
+
+        while (branches.some(b => b.length === 0)) {
+            branches = this.createBranches(users);
+        }
+
+        console.log(users)
+        console.log(goals)
+        console.log(branches)
+
+        onUpdate(users, goals, branches)
+    }
+
+    createBranches = (users) => {
+        let branches = []
         let lastBranch
+
+        let height = Math.max(users.length * 2, 20)
 
         for (let i=0; i<users.length-1; i++) {
             let b = []
 
             let prev = lastBranch != null ? 0 : -1
 
-            for (let j=1; j<20; j++) {
+            for (let j=1; j<height; j++) {
                 if (prev >= 0) {
                     while (prev < 9 && lastBranch[prev] < j) {
                         prev++;
@@ -83,30 +100,26 @@ class CreateGame extends Component {
             lastBranch = b;
         }
 
-        console.log(users)
-        console.log(goals)
-        console.log(branches)
-
-        onUpdate(users, goals, branches)
+        return branches
     }
 
     render() {
         const list = this.state.data.map(data => (
-            <MemberPair key={data.id} data={data} onUpdate={this.update} />
+            <LadderMemberPair key={data.id} data={data} onUpdate={this.update} />
         ));
         return (
             <div>
                 <div>
-                    <input type='button' value='+' onClick={this.add}/>
-                    <input type='button' value='-' onClick={this.remove} />
+                    <Button onClick={this.add}>+</Button>
+                    <Button onClick={this.remove}>-</Button>
                 </div>
 
                 {list}                
 
-                <input type='button' value='Submit' onClick={this.createGame} />
+                <Button onClick={this.createGame}>Submit</Button>
             </div>
         )
     }
 }
 
-export default CreateGame;
+export default CreateLadderGame;
