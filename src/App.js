@@ -4,7 +4,6 @@ import { Route } from "react-router-dom"
 import Header from "./Header"
 import Home from "./Home"
 import LadderApp from "./ladder/LadderApp"
-import CreateLadderGame from './ladder/CreateLadderGame';
 import LadderView from './ladder/LadderView';
 
 class App extends Component {
@@ -14,7 +13,6 @@ class App extends Component {
         <Header />
         <Route exact path="/" component={Home}/>
         <Route exact path="/ladder" component={LadderApp}/>
-        <Route path="/ladder/create" component={CreateLadderGame}/>
         <Route path="/ladder/game" component={LadderView}/>
       </div>
     );
