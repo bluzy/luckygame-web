@@ -129,9 +129,6 @@ class Ladder extends Component {
             lines.push(line)
         }
 
-        console.log(this.props.branches)
-        console.log(lines)
-
         let idx = 0;
 
         this.props.branches.forEach(branch => {
@@ -187,8 +184,6 @@ class Ladder extends Component {
 
     onClick = (e) => {
         const canvas = this.refs.canvas;
-
-        console.log(canvas)
         
         let x;
         let y;

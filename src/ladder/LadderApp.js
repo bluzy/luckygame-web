@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import CreateLadderGame from './CreateLadderGame';
 import GenResult from '../common/GenResult';
+import AES from '../common/AES'
 
 class LadderApp extends Component {
     state = {
         key: null
     }
   updateGame = (game) => {
-    let gameInfo = new Buffer(JSON.stringify(game)).toString('base64');
-    console.log(gameInfo);
-
+    let gameInfo = AES.encrypt(JSON.stringify(game));
+    
     this.setState({
       key: gameInfo
     })

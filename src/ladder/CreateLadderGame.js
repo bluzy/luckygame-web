@@ -61,10 +61,6 @@ class CreateLadderGame extends Component {
             branches = this.createBranches(users);
         }
 
-        console.log(users)
-        console.log(goals)
-        console.log(branches)
-
         let game = {
             users: users,
             goals: goals,
@@ -119,14 +115,16 @@ class CreateLadderGame extends Component {
                             <th>Name</th>
                             <th>Goal</th>
                             <td>
-                                <a class="btn-floating btn-large waves-effect waves-light blue" onClick={this.add}>+</a>
+                                <a className="btn-floating btn-large waves-effect waves-light blue" onClick={this.add}>+</a>
                             </td>
                         </tr>
                     </thead>
-                    {list}
+                    <tbody>
+                        {list}
+                    </tbody>
                 </table>
 
-                <a class="waves-effect waves-light btn-large col s6" onClick={this.createGame}>Submit</a>
+                <a className="waves-effect waves-light btn-large col s6" onClick={this.createGame}>Submit</a>
             </div>
         )
     }

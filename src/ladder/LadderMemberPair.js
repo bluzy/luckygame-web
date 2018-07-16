@@ -35,8 +35,6 @@ class LadderMemberPair extends Component {
     remove = (e) => {
         const { onRemove, data } = this.props;
 
-        console.log("Removing " + data.id)
-
         onRemove(data.id);
     }
 
@@ -49,11 +47,11 @@ class LadderMemberPair extends Component {
                 <td>
                     <input placeholder="Name" type="text" value={user} onChange={this.onChangeUser}/>
                 </td>
-                <td class="input-field col s3">
+                <td>
                     <input placeholder="Goal" type="text" value={goal} onChange={this.onChangeGoal}/>
                 </td>
-                <td class="input-field col s1">
-                    <a class="btn-floating btn-large waves-effect waves-light red" onClick={this.remove}>-</a>
+                <td>
+                    <a className="btn-floating btn-large waves-effect waves-light red" onClick={this.remove}>-</a>
                 </td>
             </tr>
         )
