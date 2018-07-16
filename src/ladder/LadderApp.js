@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CreateLadderGame from './CreateLadderGame';
-import { NavLink } from 'react-router-dom';
+import GenResult from '../common/GenResult';
 
 class LadderApp extends Component {
     state = {
@@ -18,18 +18,22 @@ class LadderApp extends Component {
   render() {
     const { key } = this.state
 
+    const wrapperStyle = {
+      padding: '10px'
+    }
+
     let link = key != null
-        ? "/ladder/game?i=" + key
+        ? window.location.origin + "/ladder/game?i=" + key
         : null
 
-    let navLink = link != null
-        ? <NavLink to={link}>{window.location.origin + link}</NavLink>
+    let genResult = link != null
+        ? <GenResult url={link} />
         : ''
 
     return (
-      <div>
+      <div style={wrapperStyle}>
         <CreateLadderGame onUpdate={this.updateGame}/>
-        {navLink}
+        {genResult}
       </div>
     );
   }

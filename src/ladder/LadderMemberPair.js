@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 
 class LadderMemberPair extends Component {
     state = {
@@ -46,11 +45,17 @@ class LadderMemberPair extends Component {
         const goal = this.state.goal;
 
         return (
-            <div>
-                <input placeholder="Name" value={user} onChange={this.onChangeUser}/>
-                <input placeholder="Goal" value={goal} onChange={this.onChangeGoal}/>
-                <Button onClick={this.remove}>-</Button>
-            </div>
+            <tr>
+                <td>
+                    <input placeholder="Name" type="text" value={user} onChange={this.onChangeUser}/>
+                </td>
+                <td class="input-field col s3">
+                    <input placeholder="Goal" type="text" value={goal} onChange={this.onChangeGoal}/>
+                </td>
+                <td class="input-field col s1">
+                    <a class="btn-floating btn-large waves-effect waves-light red" onClick={this.remove}>-</a>
+                </td>
+            </tr>
         )
     }
 }

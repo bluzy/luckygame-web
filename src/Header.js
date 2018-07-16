@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import { Nav, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
     render() {
         return (
-            <div>
-                <Nav pills>
-                    <NavItem>
+            <nav>
+                <div className="nav-wrapper blue darken-1">
+                <ul id="nav-mobile" className="left">
+                    <li>
                         <NavLink to={'/ladder'}>사다리</NavLink>
-                    </NavItem>
-                </Nav>
-            </div>
+                    </li>
+                    <li>
+                        ...
+                    </li>
+                </ul>
+                </div>
+            </nav>
         )
     }
 }

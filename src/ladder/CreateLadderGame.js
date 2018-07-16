@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import LadderMemberPair from './LadderMemberPair';
-import { Button } from 'reactstrap';
 
 class CreateLadderGame extends Component {
     id = 2
@@ -114,13 +113,20 @@ class CreateLadderGame extends Component {
         ));
         return (
             <div>
-                <div>
-                    <Button onClick={this.add}>+</Button>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Goal</th>
+                            <td>
+                                <a class="btn-floating btn-large waves-effect waves-light blue" onClick={this.add}>+</a>
+                            </td>
+                        </tr>
+                    </thead>
+                    {list}
+                </table>
 
-                {list}                
-
-                <Button onClick={this.createGame}>Submit</Button>
+                <a class="waves-effect waves-light btn-large col s6" onClick={this.createGame}>Submit</a>
             </div>
         )
     }

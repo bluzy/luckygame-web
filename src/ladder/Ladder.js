@@ -91,9 +91,11 @@ class Ladder extends Component {
             return
         }
 
-        let paths = this.getPath(this.getLines(), line)
+        ctx.rect(this.getLineX(line) - (this.state.xSpace / 2) + 10, 5, this.state.xSpace - 20, this.state.yOffset);
+        ctx.stroke();
 
-        console.log(paths)
+        let result = this.getPath(this.getLines(), line);
+        let paths = result.paths;
 
         ctx.beginPath();
         ctx.moveTo(this.getLineX(line), this.getLineY(0))
@@ -104,6 +106,11 @@ class Ladder extends Component {
             ctx.strokeStyle="red";
             ctx.stroke()
         })
+
+        ctx.lineWidth=1;
+
+        ctx.rect(this.getLineX(result.goal) - (this.state.xSpace / 2) + 10, this.getLineY(this.getHeight()) + 5, this.state.xSpace - 20, this.state.yOffset);
+        ctx.stroke();
     }
 
     getLines = () => {
@@ -149,14 +156,14 @@ class Ladder extends Component {
 
         let currLine = lines[x];
 
+        let result = {};
+
         let paths = [];
 
         for (let i=0; i<this.getHeight(); i++) {
-            console.log('checking ' + x + ',' + i);
             let move = currLine[i]['left'] || currLine[i]['right'];
 
             if (move) {
-                console.log('move on ' + x + ',' + i)
                 paths.push({x: this.getLineX(x), y: this.getLineY(i)});
 
                 if (currLine[i]['left']) {
@@ -173,7 +180,9 @@ class Ladder extends Component {
 
         paths.push({x: this.getLineX(x), y: this.getLineY(this.getHeight())});
 
-        return paths;
+        result.paths = paths;
+        result.goal = x;
+        return result;
     }
 
     onClick = (e) => {
@@ -196,15 +205,11 @@ class Ladder extends Component {
         x = x - canvas.offsetLeft;
         y = y - canvas.offsetTop;
 
-        console.log(x + ',' + y)
-
         if (y > this.getLineY(0)) {
             return;
         }
 
         let i = (x / 100) | 0
-
-        console.log(i)
 
         this.startMove(i)
     }
@@ -221,23 +226,28 @@ class Ladder extends Component {
         const canvas = this.refs.canvas;
         const ctx = canvas.getContext("2d");
 
+        ctx.strokeStyle="black"
+        ctx.lineWidth=1
+
         let len = this.props.names.length;
 
-        canvas.width = Math.max(this.state.xSpace * len, 640);
-        canvas.height = Math.max(this.getLineY(this.getHeight()) + (this.state.yOffset * 2), 480);
+        canvas.width = this.state.xSpace * len;
+        canvas.height = this.getLineY(this.getHeight()) + (this.state.yOffset * 2);
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.rect(0, 0, canvas.width, canvas.height);
+        ctx.stroke();
 
         if (len === 0) {
-            return
+            return;
         }
-
-        ctx.strokeStyle="black"
 
         this.drawNames();
         this.drawGoals();
         this.drawVLines(this.props.names.length)
         this.drawBranches();
+
     }
 
     componentDidUpdate() {
@@ -249,10 +259,13 @@ class Ladder extends Component {
     }
 
     render() {
+        const canvasStyle = {
+            padding: '10px'
+        };
+
         return(
             <div>
-                <h2>사 다 리 게 임 </h2>
-                <canvas ref="canvas" width={1024} height={768} onClick={this.onClick}/>
+                <canvas ref="canvas" width={1024} height={768} style={canvasStyle} onClick={this.onClick}/>
             </div>
         )
     }
