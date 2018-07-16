@@ -83,7 +83,7 @@ class CreateLadderGame extends Component {
 
             for (let j=1; j<height; j++) {
                 if (prev >= 0) {
-                    while (prev < 9 && lastBranch[prev] < j) {
+                    while (prev < height && lastBranch[prev] < j) {
                         prev++;
                     }
                     if (lastBranch[prev] === j) {
