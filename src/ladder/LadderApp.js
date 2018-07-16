@@ -1,29 +1,35 @@
 import React, { Component } from 'react';
-import Ladder from './Ladder';
 import CreateLadderGame from './CreateLadderGame';
+import { NavLink } from 'react-router-dom';
 
 class LadderApp extends Component {
-  state = {
-    users:[],
-    goals:[],
-    branches:[]
-  }
+    state = {
+        key: null
+    }
+  updateGame = (game) => {
+    let gameInfo = new Buffer(JSON.stringify(game)).toString('base64');
+    console.log(gameInfo);
 
-  updateGame = (users, goals, branches) => {
     this.setState({
-      users:users,
-      goals:goals,
-      branches:branches
+      key: gameInfo
     })
   }
 
   render() {
-    const { users, goals, branches } = this.state
+    const { key } = this.state
+
+    let link = key != null
+        ? "/ladder/game?i=" + key
+        : null
+
+    let navLink = link != null
+        ? <NavLink to={link}>{window.location.origin + link}</NavLink>
+        : ''
 
     return (
       <div>
         <CreateLadderGame onUpdate={this.updateGame}/>
-        <Ladder names={users} goals={goals} branches={branches}/>
+        {navLink}
       </div>
     );
   }

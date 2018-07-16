@@ -6,9 +6,9 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <Nav>
+                <Nav pills>
                     <NavItem>
-                        <NavLink href="#" to={'/ladder'}>사다리</NavLink>
+                        <NavLink to={'/ladder'}>사다리</NavLink>
                     </NavItem>
                 </Nav>
             </div>

@@ -29,16 +29,15 @@ class CreateLadderGame extends Component {
         })
     }
 
-    remove = () => {
-        if (this.id === 2) {
+    remove = (id) => {
+        if (this.state.data.length <= 2) {
             return
         }
 
         const { data } = this.state;
         this.setState({
-            data: data.slice(0, data.length - 1)
+            data: data.filter(d => d.id !== id)
         })
-        this.id--;
     }
 
     createGame = () => {
@@ -67,7 +66,13 @@ class CreateLadderGame extends Component {
         console.log(goals)
         console.log(branches)
 
-        onUpdate(users, goals, branches)
+        let game = {
+            users: users,
+            goals: goals,
+            branches: branches
+        }
+
+        onUpdate(game)
     }
 
     createBranches = (users) => {
@@ -105,13 +110,12 @@ class CreateLadderGame extends Component {
 
     render() {
         const list = this.state.data.map(data => (
-            <LadderMemberPair key={data.id} data={data} onUpdate={this.update} />
+            <LadderMemberPair key={data.id} data={data} onUpdate={this.update} onRemove={this.remove} />
         ));
         return (
             <div>
                 <div>
                     <Button onClick={this.add}>+</Button>
-                    <Button onClick={this.remove}>-</Button>
                 </div>
 
                 {list}                

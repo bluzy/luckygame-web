@@ -5,7 +5,7 @@ import Header from "./Header"
 import Home from "./Home"
 import LadderApp from "./ladder/LadderApp"
 import CreateLadderGame from './ladder/CreateLadderGame';
-import Ladder from './ladder/Ladder';
+import LadderView from './ladder/LadderView';
 
 class App extends Component {
   render() {
@@ -15,7 +15,7 @@ class App extends Component {
         <Route exact path="/" component={Home}/>
         <Route exact path="/ladder" component={LadderApp}/>
         <Route path="/ladder/create" component={CreateLadderGame}/>
-        <Route path="/ladder/game" component={Ladder}/>
+        <Route path="/ladder/game" component={LadderView}/>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 
 class LadderMemberPair extends Component {
     state = {
@@ -32,6 +33,14 @@ class LadderMemberPair extends Component {
         });
     }
 
+    remove = (e) => {
+        const { onRemove, data } = this.props;
+
+        console.log("Removing " + data.id)
+
+        onRemove(data.id);
+    }
+
     render() {
         const user = this.state.user;
         const goal = this.state.goal;
@@ -40,6 +49,7 @@ class LadderMemberPair extends Component {
             <div>
                 <input placeholder="Name" value={user} onChange={this.onChangeUser}/>
                 <input placeholder="Goal" value={goal} onChange={this.onChangeGoal}/>
+                <Button onClick={this.remove}>-</Button>
             </div>
         )
     }
