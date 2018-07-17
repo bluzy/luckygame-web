@@ -231,8 +231,10 @@ class Ladder extends Component {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.rect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle='PapayaWhip'
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.stroke();
+        ctx.fillStyle='black'
 
         if (len === 0) {
             return;
@@ -254,13 +256,20 @@ class Ladder extends Component {
     }
 
     render() {
+        const frameStyle = {
+            padding: '10px',
+            width: '100%',
+            height: '100%'
+        }
         const canvasStyle = {
             padding: '10px'
         };
 
         return(
             <div>
+            
                 <canvas ref="canvas" width={1024} height={768} style={canvasStyle} onClick={this.onClick}/>
+            
             </div>
         )
     }
