@@ -4,12 +4,13 @@ import GenResult from '../common/GenResult';
 import AES from '../common/AES'
 
 class LadderApp extends Component {
-    state = {
-        key: null
-    }
+  state = {
+    key: null
+  }
+
   updateGame = (game) => {
     let gameInfo = AES.encrypt(JSON.stringify(game));
-    
+
     this.setState({
       key: gameInfo
     })
@@ -25,17 +26,20 @@ class LadderApp extends Component {
     }
 
     let link = key != null
-        ? window.location.origin + "/ladder/game?i=" + key
-        : null
+      ? window.location.origin + "/ladder/game?i=" + key
+      : null
 
     let genResult = link != null
-        ? <GenResult url={link} />
-        : ''
+      ? <div>
+        <GenResult url={link} />
+        <div className="divider"></div>
+      </div>
+      : ''
 
     return (
       <div style={wrapperStyle}>
-        <CreateLadderGame onUpdate={this.updateGame}/>
         {genResult}
+        <CreateLadderGame onUpdate={this.updateGame} />
       </div>
     );
   }

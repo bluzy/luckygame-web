@@ -90,7 +90,7 @@ class Ladder extends Component {
             return
         }
 
-        ctx.rect(this.getLineX(line) - (this.state.xSpace / 2) + 10, 5, this.state.xSpace - 20, this.state.yOffset);
+        ctx.rect(this.getLineX(line) - (100 / 2) + 10, 5, 80, this.state.yOffset);
         ctx.stroke();
 
         let result = this.getPath(this.getLines(), line);
@@ -108,7 +108,7 @@ class Ladder extends Component {
 
         ctx.lineWidth=1;
 
-        ctx.rect(this.getLineX(result.goal) - (this.state.xSpace / 2) + 10, this.getLineY(this.getHeight()) + 5, this.state.xSpace - 20, this.state.yOffset);
+        ctx.rect(this.getLineX(result.goal) - (100 / 2) + 10, this.getLineY(this.getHeight()) + 5, 80, this.state.yOffset);
         ctx.stroke();
     }
 
@@ -203,7 +203,7 @@ class Ladder extends Component {
             return;
         }
 
-        let i = (x / 100) | 0
+        let i = (x / this.state.xSpace) | 0
 
         this.startMove(i)
     }
@@ -230,7 +230,7 @@ class Ladder extends Component {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle='PapayaWhip'
+        ctx.fillStyle='AliceBlue'
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.stroke();
         ctx.fillStyle='black'

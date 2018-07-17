@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 class GenResult extends Component {
     
     copyToClipboard = () => {
-        const area = this.refs.txt;
-
-        area.select();
+        const el = document.createElement('textarea');
+        el.value = this.props.url;
+        document.body.appendChild(el);
+        el.select();
         document.execCommand('copy');
+        document.body.removeChild(el);
 
-        alert("Copied.");
+        alert("Copied to clipboard.");
     }
 
     render() {
@@ -16,12 +18,15 @@ class GenResult extends Component {
 
         return (
             <div>
-                <div>
-                    <textarea ref='txt' className="materialize-textarea">{url}</textarea>
-                </div>
-                <div>
-                    <a className="waves-effect waves-light btn" onClick={this.copyToClipboard}>Copy to clipboard</a>
-                    <a className="waves-effect waves-light btn" href={url}>Go</a>
+                <div className="row">
+                    <div className="input-field col s11">
+                        <a href={url} target='_blank' rel="noopener noreferrer">
+                        <textarea ref='txt' className="materialize-textarea" readOnly value={url}/>
+                        </a>
+                    </div>
+                    <div className="input-field col s1">
+                        <a className="btn-floating btn-large brown lighten-4" onClick={this.copyToClipboard}><i className="material-icons">filter_none</i></a>
+                    </div>
                 </div>
             </div>
         )

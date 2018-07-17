@@ -123,8 +123,10 @@ class CreateLadderGame extends Component {
                         {list}
                     </tbody>
                 </table>
-
-                <a className="waves-effect waves-light btn-large col s6" onClick={this.createGame}>Submit</a>
+                
+                <div className="row">
+                    <a className="waves-effect waves-light btn-large col s6 offset-s3" onClick={this.createGame}>Submit</a>
+                </div>
             </div>
         )
     }
