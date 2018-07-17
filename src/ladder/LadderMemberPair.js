@@ -39,16 +39,19 @@ class LadderMemberPair extends Component {
     }
 
     render() {
-        const user = this.state.user;
-        const goal = this.state.goal;
+        const { user, goal } = this.state;
+
+        const inputStyle = {
+            fontSize: '16px'
+        }
 
         return (
             <tr>
                 <td>
-                    <input placeholder="Name" type="text" value={user} onChange={this.onChangeUser}/>
+                    <input placeholder="Name" type="text" style={inputStyle} value={user} onChange={this.onChangeUser}/>
                 </td>
                 <td>
-                    <input placeholder="Goal" type="text" value={goal} onChange={this.onChangeGoal}/>
+                    <input placeholder="Goal" type="text" style={inputStyle} value={goal} onChange={this.onChangeGoal}/>
                 </td>
                 <td>
                     <a className="btn-floating btn-large waves-effect waves-light red" onClick={this.remove}>-</a>
