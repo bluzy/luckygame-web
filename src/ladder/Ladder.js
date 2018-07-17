@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 
 class Ladder extends Component {
     state = {
-        xOffset: 20,
         yOffset: 20,
         ySpace: 25,
-        xSpace: 100
+        xSpace: 80
     }
 
     getHeight = () => {
@@ -252,6 +251,10 @@ class Ladder extends Component {
     }
 
     componentDidMount() {
+        this.setState({
+            xSpace: Math.max((window.innerWidth - 20) / this.props.names.length, 80)
+        })
+
         this.init();
     }
 
