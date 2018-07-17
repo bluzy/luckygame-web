@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LadderMemberPair from './LadderMemberPair';
+import Simplert from 'react-simplert';
 
 class CreateLadderGame extends Component {
     id = 2
@@ -7,7 +8,26 @@ class CreateLadderGame extends Component {
         data: [
             {id:0, user:'', goal:''},
             {id:1, user:'', goal:''}
-        ]
+        ],
+        showAlert: false,
+        alertType: '',
+        alertTitle: '',
+        alertMessage: ''
+    }
+
+    alert = (type, title, msg) => {
+        this.setState({
+            alertType: type,
+            alertTitle: title,
+            showAlert: true,
+            alertMessage: msg
+        })
+    }
+
+    onCloseAlert = () => {
+        this.setState({
+            showAlert: false
+        })
     }
 
     add = () => {
@@ -45,8 +65,12 @@ class CreateLadderGame extends Component {
         let users = []
         let goals = []
 
-        if (this.state.data.some(d => d.user === '' || d.goal === '')) {
-            alert('Empty data');
+        if (this.state.data.some(d => d.user == null || d.user === '')) {
+            this.alert(
+                'error',
+                'All names must be filled.',
+                ''
+            )
             return;
         }
 
@@ -107,6 +131,9 @@ class CreateLadderGame extends Component {
         const list = this.state.data.map(data => (
             <LadderMemberPair key={data.id} data={data} onUpdate={this.update} onRemove={this.remove} />
         ));
+
+        const { showAlert, alertType, alertTitle, alertMessage } = this.state;
+
         return (
             <div>
                 <table>
@@ -127,6 +154,14 @@ class CreateLadderGame extends Component {
                 <div className="row">
                     <a className="waves-effect waves-light btn-large col s6 offset-s3" onClick={this.createGame}>Submit</a>
                 </div>
+
+                <Simplert
+                    showSimplert={showAlert}
+                    type={alertType}
+                    title={alertTitle}
+                    message={alertMessage}
+                    onClose={this.onCloseAlert}
+                    />
             </div>
         )
     }

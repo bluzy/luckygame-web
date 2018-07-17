@@ -20,7 +20,7 @@ class Ladder extends Component {
 
         let idx = 0;
 
-        this.props.names.forEach(name => {
+        this.props.names.filter(name => name != null).forEach(name => {
             ctx.fillText(name, this.getLineX(idx), this.state.yOffset, this.state.xSpace * 0.8);
             idx++;
         });

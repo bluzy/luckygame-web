@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "bootstrap": "^4.0.0-alpha.6",
     "crypto": "^1.0.1",
+    "jquery": "^3.3.1",
     "query-string": "^6.1.0",
     "react": "^16.4.1",
     "react-addons-css-transition-group": "^15.6.2",
@@ -14,7 +14,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^1.1.4",
-    "reactstrap": "^6.3.0"
+    "react-simplert": "^0.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

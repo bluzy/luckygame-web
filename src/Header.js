@@ -8,7 +8,7 @@ class Header extends Component {
                 <div className="nav-wrapper blue darken-1">
                 <ul id="nav-mobile" className="left">
                     <li>
-                        <NavLink to={'/ladder'}>사다리</NavLink>
+                        <NavLink to={'/ladder'}>LADDER</NavLink>
                     </li>
                     <li>
                         ...
