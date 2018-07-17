@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
 
 class GenResult extends Component {
-
+    
     copyToClipboard = () => {
         const area = this.refs.txt;
 
@@ -14,7 +13,6 @@ class GenResult extends Component {
 
     render() {
         const { url } = this.props;
-
 
         return (
             <div>

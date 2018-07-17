@@ -19,7 +19,9 @@ class LadderApp extends Component {
     const { key } = this.state
 
     const wrapperStyle = {
-      padding: '10px'
+      padding: '10px',
+      minWidth: '100%',
+      minHeight: '100%',
     }
 
     let link = key != null

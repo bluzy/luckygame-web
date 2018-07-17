@@ -257,20 +257,19 @@ class Ladder extends Component {
 
     render() {
         const frameStyle = {
-            padding: '10px',
-            width: '100%',
-            height: '100%'
+            minWidth: '100%',
+            minHeight: '100%',
+            display: 'flex',
+            overflowX: 'auto'
         }
         const canvasStyle = {
             padding: '10px'
         };
 
         return(
-            <div>
-            
+            <section style={frameStyle}>
                 <canvas ref="canvas" width={1024} height={768} style={canvasStyle} onClick={this.onClick}/>
-            
-            </div>
+            </section>
         )
     }
 }
