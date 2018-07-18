@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Simplert from 'react-simplert';
 
 class Roulette extends Component {
     colors = ['Wheat', 'Coral', 'PowderBlue', 'DeepSkyBlue', 'ForestGreen', 'Khaki', 'LightBlue', 'LightGreen', 'LightPink', 'MistyRose', 'SandyBrown']
@@ -94,13 +95,17 @@ class Roulette extends Component {
         ctx.globalAlpha = 1;
     }
 
-    showResult() {
+    showResult = () => {
         const { handAngle } = this.state;
         let baseAngle = 2 * Math.PI / this.props.names.length;
 
         let idx = Math.floor(handAngle / baseAngle)
 
-        alert(this.props.names[idx]);
+        this.setState({
+            victim: this.props.names[idx]
+        })
+
+        this.forceUpdate();
     }
 
     init = () => {
@@ -133,7 +138,8 @@ class Roulette extends Component {
 
         this.setState({
             skip: Math.floor(Math.random() * 500) + 50,
-            speed: 0.2
+            speed: 0.2,
+            victim: null
         });
     }
 
@@ -215,6 +221,17 @@ class Roulette extends Component {
             display: 'none'
         };
 
+        const { victim } = this.state;
+
+        let alert = victim != null
+                ? (<Simplert
+                        showSimplert='true'
+                        type='info'
+                        title='Congratulation!'
+                        message={victim}
+                    />)
+                : null;
+
         return(
             <div>
                 <canvas ref="buffer" width='100%' height='100%' style={none} />
@@ -225,6 +242,7 @@ class Roulette extends Component {
                 <div>
                     <a className="waves-effect waves-light btn-large" onClick={this.start}>Go</a>
                 </div>
+                {alert}
             </div>
         )
     }
