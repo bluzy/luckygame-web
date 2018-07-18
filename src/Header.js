@@ -11,7 +11,7 @@ class Header extends Component {
                         <NavLink to={'/ladder'}>LADDER</NavLink>
                     </li>
                     <li>
-                        ...
+                        <NavLink to={'/roulette'}>ROULETTE</NavLink>
                     </li>
                 </ul>
                 </div>
