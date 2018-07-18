@@ -227,8 +227,8 @@ class Roulette extends Component {
                 ? (<Simplert
                         showSimplert='true'
                         type='info'
-                        title='Congratulation!'
-                        message={victim}
+                        title={victim}
+                        message='Congratulation!'
                     />)
                 : null;
 
